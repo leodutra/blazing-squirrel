@@ -1,0 +1,299 @@
+extends layout
+
+block content
+
+  .navbar.navbar-default.navbar-fixed-top(role='navigation')
+    .container-fluid
+        .navbar-header
+          //button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+          a.logo(href='javascript:void(0);')
+            img(src="/images/database.png",class="img-responsive",style="width: 33px; height: 33px;")
+          a.navbar-brand(href='javascript:void(0);')=title
+        #tips.small.pull-right.hidden-xs
+          b dica:&nbsp;
+          span
+
+  form#queryForm
+    .container-fluid
+      .row.clearfix
+        .col-lg-12
+          p 
+            #code-editor
+              | 
+              | -- Atalhos:
+              | --   ctrl + enter   executa código
+              | --   ctrl + space   autocompletar o SQL
+              | --   ctrl + ; ou /  comenta seleção
+              | 
+              | select * from sysibm.systables
+              | where owner = 'DBPROD'
+              | and type = 'T'
+              | order by children desc, name asc
+              | fetch first 100 rows only
+
+    .container-fluid
+      .row.clearfix
+        - var titleSet = {ip: "ip", port: "porta", db: "schema", user: "usuário", pass: "senha"}
+        .col-md-2
+            .input-group
+              span.input-group-addon(title=titleSet.ip) #
+              input.form-control(name="ip",value="10.205.105.80",placeholder=titleSet.ip)
+        .col-md-2
+            .input-group
+              span.input-group-addon(title=titleSet.port) :
+              input.form-control(name="port",value="50000",placeholder=titleSet.port)
+        .col-md-2
+            .input-group
+              span.input-group-addon(title=titleSet.db) [ ]
+              input.form-control(name="db",value="DB2_TEST",placeholder=titleSet.db)
+        .col-md-2
+            .input-group
+              span.input-group-addon(title=titleSet.user) @
+              input.form-control(name="user",placeholder=titleSet.user)
+        .col-md-2
+            .input-group
+              span.input-group-addon(title=titleSet.pass) ?
+              input.form-control(name="password",type="password",placeholder=titleSet.pass)
+        .col-md-2
+          p
+            input(type="submit", style="position: absolute; left: -9999px; width: 1px; height: 1px;")
+            a#queryBtn.btn.btn-default.pull-right.btn-success(href="javascript:void(0);") Executar&nbsp;&nbsp;&nbsp;
+              span.glyphicon.glyphicon-play
+    
+      
+      .row.clearfix
+        .col-md-12
+          #result
+
+  script.
+
+    ace.require("ace/ext/language_tools");
+    var editor = ace.edit("code-editor");
+    editor.setTheme("ace/theme/dreamweaver");
+    editor.getSession().setMode("ace/mode/sql");
+    editor.setOptions({
+      enableBasicAutocompletion: true
+      //,enableSnippets: true
+    });
+
+    editor.commands.addCommand({
+      name: 'Submit shortcut',
+      bindKey: {win: 'Ctrl-Enter',  mac: 'Command-Enter'},
+      exec: function(editor) {
+          $('#queryForm').submit();
+        }
+    });
+
+    var app = {
+      //- isNotifyGranted: notify.permissionLevel() === notify.PERMISSION_GRANTED,
+      isNotifyGranted: Notification.permission === "granted",
+
+      notify: function(text) {
+        var hasUnknownPermission = Notification.permission === "unknown";
+        text = text || '';
+        if (app.isNotifyGranted && (document.hidden || document.msHidden || document.mozHidden || document.webkitHidden || (document.hasFocus && !document.hasFocus()))) {
+          new Notification(
+              hasUnknownPermission ? text : "Query Assitant", 
+              {
+                body: text, 
+                icon: '/images/favicon.ico'
+            }).onclick = function() {
+              focus();
+            };
+          if (hasUnknownPermission) { 
+            focus(); 
+            alert(text); 
+          }
+        }
+      },
+
+      grantNotification: function() {
+        //- if(!app.isNotifyGranted && notify.permissionLevel() === notify.PERMISSION_DEFAULT){
+        //-   notify.requestPermission(function() {
+        //-     app.isNotifyGranted = notify.permissionLevel() === notify.PERMISSION_GRANTED;
+        //-   });
+        //- }
+
+
+        if (Notification.permission === "unknown") { // IE
+          app.isNotifyGranted = true;
+          return;
+        }
+        if(!app.isNotifyGranted && Notification.permission === "default"){
+          Notification.requestPermission(function() {
+            app.isNotifyGranted = Notification.permission === "granted";
+          });
+        }
+      }
+
+    }
+
+    var tipCycle = {
+      
+      counter: 0,
+      
+      tips: [
+        '<b>"Shift + scroll"</b> rola os resultados horizontalmente! (Alguns navegadores)', 
+        '<b>"Ctrl + enter"</b> executa c&oacute;digo',
+        '<b>"Ctrl + espa&ccedil;o"</b> autocompleta o SQL',
+        '<b>"Ctrl + / (ou ;)"</b> comenta sele&ccedil;&atilde;o',
+        'Autorize as <b>notifica&ccedil;&otilde;es de desktop</b> para maior conforto.'
+      ],
+
+      cycle: function() {
+        $('#tips > span').hide().html(tipCycle.tips[tipCycle.counter]).fadeIn();
+
+        if (++tipCycle.counter > tipCycle.tips.length) tipCycle.counter = 0;
+
+        setTimeout(tipCycle.cycle, 5000);
+      }
+    };
+
+    $(function($) {
+      $('input[name="user"]').val(localStorage.user || '');
+      $('input[name="password"]').val(localStorage.password || '');
+      var lastQuery = localStorage.query;
+      if (lastQuery) editor.setValue(lastQuery, 0);
+
+      $('#queryBtn').click(function() {
+        $('#queryForm').submit()
+      });
+
+      tipCycle.cycle();
+      app.grantNotification();
+    });
+
+    function getFormData() {
+      return 'query=' + encodeURIComponent(editor.getValue()) + '&' + $('#queryForm').serialize();
+    }
+
+    function escapeHTMLInJSON(json) {
+      return JSON.parse(
+        JSON.stringify(json).replace(/[<>]/gm, function (match) { 
+          return '&' + (match == '<' ? 'lt;' : 'gt;'); 
+        })
+      );
+    }
+
+    function saveLocalData() {
+      localStorage.user = $('input[name="user"]').val();
+      localStorage.password = $('input[name="password"]').val();
+      localStorage.query = editor.getValue();
+    } 
+
+    function display(content, cb) {
+      $('#result').hide().html(content).show(200, cb);
+    }
+
+    $('#queryForm').submit(function (event) {
+
+      event.preventDefault();
+
+      app.grantNotification();
+
+      display('<h4><span class="label label-default">Executando...</span></h4>')
+
+      Pace.track(function() {
+        $.ajax({
+
+          type: 'post',
+          url: '/query',
+          dataType: 'json',
+          cache: false,
+          data: getFormData() 
+
+        }).done(function (data) {
+
+          display(
+
+            '<h4><span class="label label-primary">Recebido... preparando apresenta&ccedil;&atilde;o...</span></h4>', 
+
+            function() {
+
+              'use strict';
+              
+              var document = window.document;
+
+              if ($.type(data) !== 'array') {
+                if (data && data.isError && data.error) {
+                  return display('<h4><span class="label label-danger">Error</span></h4>'+ data.error);
+                }
+                else {
+                  return display('<h4><span class="label label-danger">Error</span></h4>Ocorreu um erro indefinido no driver IBM. Informe ao responsável.');
+                }
+              }
+              else if (!data.length){
+                return display('<h4><span class="label label-warning">Nenhum registro foi encontrado.</span></h4>');
+              }
+
+              // data = escapeHTMLInJSON(data);
+
+              saveLocalData();
+
+              var columns = [];
+
+              var i, l, j, k, docFragment, table, thead, tbody, th, tr, td, item, column, innerFragment, cache, children;
+
+              table = document.createElement('table');
+              table.className = 'table table-bordered table-hover table-condensed table-striped small';
+              table.style.width = '10%';
+              table.style.maxWidth = '100%';
+              table.style.border = 1;
+
+              thead = document.createElement('thead');
+              
+              tr = document.createElement('tr');
+              docFragment = document.createDocumentFragment();
+
+              var columns = Object.keys(data[0]);
+
+              innerFragment = document.createDocumentFragment();
+
+              for (i = 0, l = columns.length; i < l;) {
+                docFragment.appendChild(document.createElement('th')).textContent = columns[i++] + '';
+                innerFragment.appendChild(document.createElement('td'));
+              }
+
+              tr.appendChild(docFragment);
+              thead.appendChild(tr);
+              table.appendChild(thead);
+
+              tr = document.createElement('tr');
+              tr.appendChild(innerFragment);
+              children = tr.children;
+
+              tbody = document.createElement('tbody');
+              docFragment = document.createDocumentFragment();
+
+              for (i = 0, l = data.length; i < l;) {
+
+                item = data[i++];
+
+                for (j = 0, k = columns.length; j < k; j++) {
+                  children[j].textContent = item[columns[j]] + '';
+                }
+
+                docFragment.appendChild(tr.cloneNode(true));
+              }
+
+              tbody.appendChild(docFragment);
+              table.appendChild(tbody);
+
+              display(table);
+
+              app.notify("Operação finalizada.");
+
+              data = null;
+            }
+          );
+
+        })
+        .fail(function( jqXHR, textStatus, errorThrown ) {
+          if (!errorThrown.message && jqXHR.status === 400) {
+            display('<h4><span class="label label-danger">Error</span></h4>Você está desconectado da rede. Verifique sua conexão.');
+          }
+          display('<h4><span class="label label-danger">Error</span></h4>'+ ( errorThrown.message || textStatus + ' (' + jqXHR.status + ')' ));
+        });
+      });
+      
+    });

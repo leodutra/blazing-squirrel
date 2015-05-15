@@ -1,0 +1,19 @@
+{
+  "name": "query-assistant",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "body-parser": "~1.0.0",
+    "cookie-parser": "~1.0.1",
+    "debug": "~0.7.4",
+    "express": "~3.4.8",
+    "jade": "~1.3.0",
+    "less-middleware": "0.1.15",
+    "morgan": "~1.0.0",
+    "static-favicon": "~1.0.0",
+    "string": "~1.8.1"
+  }
+}

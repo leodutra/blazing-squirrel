@@ -1,0 +1,41 @@
+@font-face {
+  font-family: 'Orbitron';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Orbitron-Bold'), url(../fonts/orbitron-700.woff) format('woff');
+}
+body {
+  padding: 55px 0 0 0;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background: #FBFBFF;
+}
+.navbar-default {
+  background: #EEE;
+  border-color: #CCC;
+}
+a.logo {
+  float: left;
+  margin: 8px 10px 0 8px;
+}
+a.navbar-brand {
+  font-family: 'Orbitron', sans-serif;
+}
+a {
+  color: #00B7FF;
+}
+#tips {
+  margin: 30px 25px 0px 0;
+}
+#result {
+  overflow-y: auto;
+  margin-top: 20px;
+}
+#code-editor {
+  height: 220px;
+  font-size: 14px;
+  border: 1px solid #CCC;
+  border-radius: 4px;
+}
+.overflowable {
+  overflow: auto;
+}
