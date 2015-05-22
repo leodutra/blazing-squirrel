@@ -5,6 +5,23 @@ var S = require('string');
 var db = new odbc.Database();
 var pool = new odbc.Pool();
 
+
+function includeLimit(query) {
+	query = ('' +query);
+	if (!(/limit[\s\S]+by[\s\S]+\d+[\s\S]+rows[\s\S]+only/gim).test(query)) {
+		var index = query.indexOf(';');	
+		var limit = ' limit by 1000 rows only';
+		if (index !== -1) {
+			query = query.substr(0, index) + limit + query.substr(index);
+		}
+		else {
+			query += limit;
+		}
+	}
+	return query;
+}
+
+
 /* GET home page. */
 exports.query = function (req, res, next) {
 
@@ -16,6 +33,9 @@ exports.query = function (req, res, next) {
 		return error(res, 'Missing "' + missings.join('", "') + '"');
 	}
 
+	
+//	req.body.query
+	
 //	console.info(Array(50).join('-'), 'QUERY', '\n', req.body.query, '\n', Array(55).join('-'));
 
 	var dbConfig = S(
@@ -32,7 +52,7 @@ exports.query = function (req, res, next) {
 			return error(res, err);
 		}
 
-		conn.query(req.body.query, function (err, data) {
+		conn.query(includeLimit(req.body.query), function (err, data) {
 
 			if (err)
 				return error(res, err);
