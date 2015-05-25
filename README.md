@@ -8,9 +8,9 @@ io.js + HTML5 SQL client
 ```sh
 apt-get install iojs npm git unixodbc unixodbc-dev -y
 ```
-+ create a [BLAZING_SQUIRREL] driver in `odbcinst.ini`
++ create a [BLAZING_SQUIRREL] driver in `odbcinst.ini` ([example](examples/linux/odbcinst.ini))
 + `git clone https://github.com/LeoDutra/blazing-squirrel.git`
 + `cd blazing-squirrel`
-+ `npm i`
++ `npm install`
 + `npm start`
 + go to [http://localhost:3000]()
