@@ -6,7 +6,7 @@ io.js + HTML5 SQL client
 + Download CLI driver
 + on Linux, install unixodbc and git:
 ```sh
-apt-get install iojs npm git unixodbc unixodbc-dev -y
+  apt-get install iojs npm git unixodbc unixodbc-dev -y
 ```
 + create a [BLAZING_SQUIRREL] driver in `odbcinst.ini` ([example](examples/linux/odbcinst.ini))
 + then:
