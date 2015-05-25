@@ -39,7 +39,7 @@ exports.query = function (req, res, next) {
 //	console.info(Array(50).join('-'), 'QUERY', '\n', req.body.query, '\n', Array(55).join('-'));
 
 	var dbConfig = S(
-		'DRIVER={DB2};DATABASE={{db}};HOSTNAME={{ip}};UID={{user}};PWD={{password}};PORT={{port}};PROTOCOL=TCPIP'
+		'DRIVER={BLAZING_SQUIRREL};DATABASE={{db}};HOSTNAME={{ip}};UID={{user}};PWD={{password}};PORT={{port}};PROTOCOL=TCPIP'
 	).template(req.body).s;
 
 //	console.info('OPEN DB2 CONN');
