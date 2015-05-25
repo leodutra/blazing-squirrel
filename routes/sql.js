@@ -52,7 +52,7 @@ exports.query = function (req, res, next) {
 			return error(res, err);
 		}
 
-		conn.query(includeLimit(req.body.query), function (err, data) {
+		conn.query(req.body.query, function (err, data) {
 
 			if (err)
 				return error(res, err);
