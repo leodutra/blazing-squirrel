@@ -1,4 +1,4 @@
-![blazing-squirrel](visual/bs.png)
+![blazing-squirrel](public/images/bs.png)
 # blazing-squirrel #
 io.js + HTML5 SQL client
 
@@ -9,8 +9,14 @@ io.js + HTML5 SQL client
 apt-get install iojs npm git unixodbc unixodbc-dev -y
 ```
 + create a [BLAZING_SQUIRREL] driver in `odbcinst.ini` ([example](examples/linux/odbcinst.ini))
-+ `git clone https://github.com/LeoDutra/blazing-squirrel.git`
-+ `cd blazing-squirrel`
-+ `npm install`
-+ `npm start`
++ then:
+```sh
+git clone https://github.com/LeoDutra/blazing-squirrel.git
+cd blazing-squirrel
+npm install
+npm start
+```
 + go to [http://localhost:3000]()
+
+## Using the FreeTDS ODBC driver
+[Go to node-odbc's FreeTDS driver reference](https://github.com/wankdanker/node-odbc#using-the-freetds-odbc-driver)
