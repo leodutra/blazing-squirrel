@@ -18,6 +18,8 @@
     "string": "~1.8.1"
   },
   "devDependencies": {
-    "pangyp": "^2.2.0"
+    "node-libs-browser": "^0.5.2",
+    "pangyp": "^2.2.0",
+    "webpack": "^1.9.10"
   }
 }

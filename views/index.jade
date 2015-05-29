@@ -1,7 +1,8 @@
 extends layout
 
-//- block head
-//-   link(rel='stylesheet', href='/addins/DataTables-1.10.7/media/css/jquery.dataTables.min.css')
+block head
+  
+  script(src='/javascripts/ResultTableHTMLBuilder.js')
 
 block content
 
@@ -111,7 +112,7 @@ block content
               hasUnknownPermission ? text : "Query Assitant", 
               {
                 body: text, 
-                icon: '/images/favicon.ico'
+                icon: '/images/bs-notification.ico'
             }).onclick = function() {
               blur();
               focus();
@@ -200,17 +201,15 @@ block content
         var halfWinHeight = $(window).height() * 0.5;
         $el.stop();
         if (halfWinHeight * 0.5 > originalH) {
-          $el.animate({height: halfWinHeight}, 200, null, function() {
-            editor.resize(true);
-            recalcHeightFillers();
-          });
-        }
-      }).mouseleave(function() {
-         var $el = $('#code-editor');
-        $el.stop().animate({height: $el.data('original-height')}, 200, null, function() {
+          $el.css({height: halfWinHeight});
           editor.resize(true);
           recalcHeightFillers();
-        });
+        }
+      }).mouseleave(function() {
+        var $el = $('#code-editor');
+        $el.css('height', $el.data('original-height'));
+        editor.resize(true);
+        recalcHeightFillers();
 
       })
       $(window).resize(recalcHeightFillers);
@@ -220,13 +219,7 @@ block content
       return 'query=' + encodeURIComponent(editor.getCopyText() || editor.getValue()) + '&' + $('#queryForm').serialize();
     }
 
-    function escapeHTMLInJSON(json) {
-      return JSON.parse(
-        JSON.stringify(json).replace(/[<>]/gm, function (match) { 
-          return '&' + (match == '<' ? 'lt;' : 'gt;'); 
-        })
-      );
-    }
+    
 
     function saveLocalData() {
       localStorage.user = $('input[name="user"]').val();
@@ -290,62 +283,7 @@ block content
 
               saveLocalData();
 
-              var columns = [];
-
-              var i, l, j, k, docFragment, table, thead, tbody, th, tr, td, item, column, innerFragment, cache, children;
-
-              table = document.createElement('table');
-              table.className = 'table table-bordered table-hover table-condensed table-striped small';
-              table.style.width = '10%';
-              table.style.maxWidth = '100%';
-              table.style.border = 1;
-
-              thead = document.createElement('thead');
-              
-              tr = document.createElement('tr');
-              docFragment = document.createDocumentFragment();
-
-              var columns = Object.keys(data[0]);
-
-              innerFragment = document.createDocumentFragment();
-
-              for (i = 0, l = columns.length; i < l;) {
-                docFragment.appendChild(document.createElement('th')).textContent = columns[i++] + '';
-                innerFragment.appendChild(document.createElement('td'));
-              }
-
-              tr.appendChild(docFragment);
-              thead.appendChild(tr);
-              table.appendChild(thead);
-
-              tr = document.createElement('tr');
-              tr.appendChild(innerFragment);
-              children = tr.children;
-
-              tbody = document.createElement('tbody');
-              docFragment = document.createDocumentFragment();
-
-              for (i = 0, l = data.length; i < l;) {
-
-                item = data[i++];
-
-                for (j = 0, k = columns.length; j < k; j++) {
-                  children[j].textContent = item[columns[j]] + '';
-                }
-
-                docFragment.appendChild(tr.cloneNode(true));
-              }
-
-              tbody.appendChild(docFragment);
-              table.appendChild(tbody);
-
-              //- display(table, function() {
-              //-   $(this).children().DataTable({
-              //-     "paging": false
-              //-   });
-              //- });
-
-              display(table);
+              display(new ResultTableHTMLBuilder().build(data, 'table table-bordered table-hover table-condensed table-striped small'));
 
               app.notify("Operação finalizada.");
 

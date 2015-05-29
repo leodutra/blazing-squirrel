@@ -16,10 +16,11 @@ body {
 }
 a.logo {
   float: left;
-  margin: 8px 10px 0 8px;
+  margin: 6px 10px 0 8px;
 }
 a.navbar-brand {
   font-family: 'Orbitron', sans-serif;
+  padding: 17px 15px 14px 15px;
 }
 a {
   color: #00B7FF;

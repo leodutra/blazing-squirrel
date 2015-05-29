@@ -7,10 +7,10 @@ var pool = new odbc.Pool();
 
 
 function includeLimit(query) {
-	query = ('' +query);
-	if (!(/limit[\s\S]+by[\s\S]+\d+[\s\S]+rows[\s\S]+only/gim).test(query)) {
+	
+	if (query && typeof query === 'string' && !(/fetch[\s\S]+?first[\s\S]+?\d+[\s\S]+?rows[\s\S]+?only/gim).test(query)) {
 		var index = query.indexOf(';');	
-		var limit = ' limit by 1000 rows only';
+		var limit = ' fetch first 1000 rows only';
 		if (index !== -1) {
 			query = query.substr(0, index) + limit + query.substr(index);
 		}
@@ -18,6 +18,7 @@ function includeLimit(query) {
 			query += limit;
 		}
 	}
+
 	return query;
 }
 
@@ -48,18 +49,22 @@ exports.query = function (req, res, next) {
 
 //		console.info('ACQUIRED DB2 CONN');
 
+		dbConfig = null;
+
 		if (err) {
 			return error(res, err);
 		}
 
 		conn.query(req.body.query, function (err, data) {
 
+			conn = null;
+
 			if (err)
 				return error(res, err);
 			else 
 				res.send(data);
 
-			console.info('QUERY RESULT SENT');
+			//console.info('QUERY RESULT SENT');
 
 			// db.close(function () {
 			// 	console.log('DB2 CONN CLOSED');
