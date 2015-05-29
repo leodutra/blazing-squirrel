@@ -23,27 +23,27 @@ block content
       .container-fluid
         .row.clearfix
           - var titleSet = {ip: "ip", port: "porta", db: "schema", user: "usuário", pass: "senha"}
-          .col-md-2
+          .col-md-2.col-xs-3
               .input-group
                 span.input-group-addon(title=titleSet.ip) #
                 input.form-control(name="ip",value="10.205.105.80",placeholder=titleSet.ip)
-          .col-md-2
+          .col-md-2.col-xs-3
               .input-group
                 span.input-group-addon(title=titleSet.port) :
                 input.form-control(name="port",value="50000",placeholder=titleSet.port)
-          .col-md-2
-              .input-group
+          .col-md-2.col-xs-6
+              .input-group.pull-left.col-xs-6.col-md-12
                 span.input-group-addon(title=titleSet.db) [ ]
                 input.form-control(name="db",value="DB2_TEST",placeholder=titleSet.db)
-          .col-md-2
+          .col-md-2.col-xs-3
               .input-group
                 span.input-group-addon(title=titleSet.user +' (ex: "apstbucb")') @
                 input.form-control(name="user",placeholder=titleSet.user)
-          .col-md-2
+          .col-md-2.col-xs-3
               .input-group
                 span.input-group-addon(title=titleSet.pass +' (ex: "apstbucb")') ?
                 input.form-control(name="password",type="password",placeholder=titleSet.pass)
-          .col-md-2
+          .col-md-2.col-xs-6
             p
               //-input(type="submit", style="position: absolute; left: -9999px; width: 1px; height: 1px;")
               button#queryBtn.btn.btn-default.pull-right.btn-success(type="submit") Executar&nbsp;&nbsp;&nbsp;
