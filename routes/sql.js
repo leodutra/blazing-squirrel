@@ -5,6 +5,8 @@ var S = require('string');
 var db = new odbc.Database();
 var pool = new odbc.Pool();
 
+var poolTimeout;
+
 
 function includeLimit(query) {
 	
@@ -25,6 +27,8 @@ function includeLimit(query) {
 
 /* GET home page. */
 exports.query = function (req, res, next) {
+
+	clearTimeout(poolTimeout);
 
 	var missings = ['db', 'ip', 'user', 'password', 'port', 'query'].filter(function (parm) {
 		return !req.body[parm];
@@ -59,16 +63,12 @@ exports.query = function (req, res, next) {
 
 			conn = null;
 
+			poolTimeout = setTimeout(function() { pool.close(function(){}); }, 60000);
+
 			if (err)
 				return error(res, err);
 			else 
 				res.send(data);
-
-			//console.info('QUERY RESULT SENT');
-
-			// db.close(function () {
-			// 	console.log('DB2 CONN CLOSED');
-			// });
 		});
 	});
 };

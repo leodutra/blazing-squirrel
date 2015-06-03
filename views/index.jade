@@ -3,6 +3,7 @@ extends layout
 block head
   
   script(src='/javascripts/ResultTableHTMLBuilder.js')
+  script(src='/javascripts/AppNotifier.js')
 
 block content
 
@@ -100,51 +101,9 @@ block content
         }
     });
 
-    var app = {
-      //- isNotifyGranted: notify.permissionLevel() === notify.PERMISSION_GRANTED,
-      isNotifyGranted: Notification.permission === "granted",
+    var appNotifier = new AppNotifier('Blazing Squirrel', '/images/bs-notification.ico');
 
-      notify: function(text) {
-        var hasUnknownPermission = Notification.permission === "unknown";
-        text = text || '';
-        if (app.isNotifyGranted && (document.hidden || document.msHidden || document.mozHidden || document.webkitHidden || (document.hasFocus && !document.hasFocus()))) {
-          new Notification(
-              hasUnknownPermission ? text : "Query Assitant", 
-              {
-                body: text, 
-                icon: '/images/bs-notification.ico'
-            }).onclick = function() {
-              blur();
-              focus();
-            };
-          if (hasUnknownPermission) { 
-            blur();
-            focus(); 
-            alert(text); 
-          }
-        }
-      },
-
-      grantNotification: function() {
-        //- if(!app.isNotifyGranted && notify.permissionLevel() === notify.PERMISSION_DEFAULT){
-        //-   notify.requestPermission(function() {
-        //-     app.isNotifyGranted = notify.permissionLevel() === notify.PERMISSION_GRANTED;
-        //-   });
-        //- }
-
-
-        if (Notification.permission === "unknown") { // IE
-          app.isNotifyGranted = true;
-          return;
-        }
-        if(!app.isNotifyGranted && Notification.permission === "default"){
-          Notification.requestPermission(function() {
-            app.isNotifyGranted = Notification.permission === "granted";
-          });
-        }
-      }
-
-    }
+    appNotifier.requestPermission();
 
     var tipCycle = {
       
@@ -189,7 +148,6 @@ block content
 
       
       tipCycle.cycle();
-      app.grantNotification();
       recalcHeightFillers();
 
       $('[data-trigger-editor-size]').mouseenter(function() {
@@ -242,8 +200,6 @@ block content
         lastExecuteXHR = null;
       }
 
-      app.grantNotification();
-
       display('<h4><span class="label label-default">Executando...</span></h4>')
 
       Pace.track(function() {
@@ -285,7 +241,7 @@ block content
 
               display(new ResultTableHTMLBuilder().build(data, 'table table-bordered table-hover table-condensed table-striped small'));
 
-              app.notify("Operação finalizada.");
+              appNotifier.show(null, "Operação finalizada.", true);
 
               data = null;
             }
