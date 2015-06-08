@@ -1,5 +1,5 @@
 ![blazing-squirrel](public/images/bs.png)
-# blazing-squirrel #
+# Blazing Squirrel #
 io.js + HTML5 SQL client
 
 ## Linux Install:

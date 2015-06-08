@@ -1,10 +1,10 @@
-var ResultTableDOMBuilder = (function() {
+var DOMResultBuilder = (function() {
 
 	'use strict';
 
-	function ResultTableDOMBuilder() {}
+	function DOMResultBuilder() {}
 
-	ResultTableDOMBuilder.prototype = {
+	DOMResultBuilder.prototype = {
 
 		build: function(data, className) {
 
@@ -66,5 +66,5 @@ var ResultTableDOMBuilder = (function() {
 		);
 	}
 
-	return ResultTableDOMBuilder;
+	return DOMResultBuilder;
 })();

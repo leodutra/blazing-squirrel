@@ -1,10 +1,10 @@
-var ResultTableHTMLBuilder = (function() {
+var HTMLResultBuilder = (function() {
 
 	'use strict';
 
-	function ResultTableHTMLBuilder() {}
+	function HTMLResultBuilder() {}
 
-	ResultTableHTMLBuilder.prototype = {
+	HTMLResultBuilder.prototype = {
 
 		build: function(data, className) {
 
@@ -12,7 +12,8 @@ var ResultTableHTMLBuilder = (function() {
 
 			var columns = Object.getOwnPropertyNames(data[0]);
 
-			var result = ['<table class="'+ (className || '') + '"><thead><tr>'];
+			var result = ['<p><span class="label label-default">'+ (data.length + ' registros.')+'</span></p>',
+			'<table class="'+ (className || '') + '"><thead><tr>'];
 
 			for (var i = 0, l = columns.length; i < l;) {
 				result.push('<th>' + columns[i++] + '</th>');
@@ -49,6 +50,6 @@ var ResultTableHTMLBuilder = (function() {
 		);
 	}
 
-	return ResultTableHTMLBuilder;
+	return HTMLResultBuilder;
 })();
 

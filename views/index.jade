@@ -2,7 +2,7 @@ extends layout
 
 block head
   
-  script(src='/javascripts/ResultTableHTMLBuilder.js')
+  script(src='/javascripts/HTMLResultBuilder.js')
   script(src='/javascripts/AppNotifier.js')
 
 block content
@@ -137,9 +137,9 @@ block content
     }
 
     $(function($) {
-      $('input[name="user"]').val(localStorage.user || '');
-      $('input[name="password"]').val(localStorage.password || '');
-      var lastQuery = localStorage.query;
+      $('input[name="user"]').val(store.get('db_user') || '');
+      $('input[name="password"]').val(store.get('db_pass') || '');
+      var lastQuery = store.get('last_query');
       if (lastQuery) editor.setValue(lastQuery, 0);
 
       $('#queryBtn').click(function() {
@@ -180,9 +180,9 @@ block content
     
 
     function saveLocalData() {
-      localStorage.user = $('input[name="user"]').val();
-      localStorage.password = $('input[name="password"]').val();
-      localStorage.query = editor.getValue();
+      store.set('db_user', $('input[name="user"]').val());
+      store.set('db_pass', $('input[name="password"]').val());
+      store.set('last_query', editor.getValue());
     } 
 
     function display(content, cb) {
@@ -239,7 +239,7 @@ block content
 
               saveLocalData();
 
-              display(new ResultTableHTMLBuilder().build(data, 'table table-bordered table-hover table-condensed table-striped small'));
+              display(new HTMLResultBuilder().build(data, 'table table-bordered table-hover table-condensed table-striped small'));
 
               appNotifier.show(null, "Operação finalizada.", true);
 
