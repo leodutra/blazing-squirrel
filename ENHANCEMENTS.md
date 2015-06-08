@@ -1,4 +1,2 @@
 - result tabs;
-- number of lines;
-- total of rows;
 - limit rows;
