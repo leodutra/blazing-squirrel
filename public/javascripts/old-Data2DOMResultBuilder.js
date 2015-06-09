@@ -1,10 +1,10 @@
-var DOMResultBuilder = (function() {
+var Data2DOMResultBuilder = (function() {
 
 	'use strict';
 
-	function DOMResultBuilder() {}
+	function Data2DOMResultBuilder() {}
 
-	DOMResultBuilder.prototype = {
+	Data2DOMResultBuilder.prototype = {
 
 		build: function(data, className) {
 
@@ -66,5 +66,5 @@ var DOMResultBuilder = (function() {
 		);
 	}
 
-	return DOMResultBuilder;
+	return Data2DOMResultBuilder;
 })();

@@ -2,7 +2,7 @@ extends layout
 
 block head
   
-  script(src='/javascripts/HTMLResultBuilder.js')
+  script(src='/javascripts/Data2HTMLResultBuilder.js')
   script(src='/javascripts/AppNotifier.js')
 
 block content
@@ -239,7 +239,7 @@ block content
 
               saveLocalData();
 
-              display(new HTMLResultBuilder().build(data, 'table table-bordered table-hover table-condensed table-striped small'));
+              display(new Data2HTMLResultBuilder().build(data, 'table table-bordered table-hover table-condensed table-striped small'));
 
               appNotifier.show(null, "Operação finalizada.", true);
 
