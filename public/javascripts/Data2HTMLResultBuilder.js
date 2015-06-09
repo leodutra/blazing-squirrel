@@ -28,7 +28,6 @@ var Data2HTMLResultBuilder = (function() {
 
 			result += '</tr></thead><tbody>';
 
-			var t = Date.now();
 			for (var i = 0, l = data.length, item; i < l;) {
 
 				result += '<tr>';
@@ -43,9 +42,6 @@ var Data2HTMLResultBuilder = (function() {
 
 				result += '</tr>';
 			}
-			t -= Date.now();
-			console.log(t)
-
 			result += '</tbody></table>';
 
 			return result;
