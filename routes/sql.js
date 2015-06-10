@@ -1,7 +1,9 @@
+var express = require('express');
+var router = express.Router();
+
+
 var odbc = require('odbc');
-
 var S = require('string');
-
 var db = new odbc.Database();
 var pool = new odbc.Pool();
 
@@ -26,7 +28,7 @@ function includeLimit(query) {
 
 
 /* GET home page. */
-exports.query = function (req, res, next) {
+router.all('/query', function (req, res, next) {
 
 	clearTimeout(poolTimeout);
 
@@ -71,7 +73,7 @@ exports.query = function (req, res, next) {
 				res.send(data);
 		});
 	});
-};
+});
 
 function error(res, err) {
 
@@ -83,3 +85,6 @@ function error(res, err) {
 	});
 }
 
+
+
+module.exports = router;
