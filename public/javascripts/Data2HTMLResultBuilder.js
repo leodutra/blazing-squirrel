@@ -19,7 +19,7 @@ var Data2HTMLResultBuilder = (function() {
 
 			var columns = Object.getOwnPropertyNames(data[0]);
 
-			var result = '<p><span class="label label-default">'+ (data.length + ' registros.')+'</span></p>'+
+			var result = '<p><span class="label label-default">'+ (data.length + ' registro(s).')+'</span></p>'+
 			'<table class="'+ (className || '') + '"><thead><tr>';
 
 			for (var i = 0, l = columns.length; i < l;) {
