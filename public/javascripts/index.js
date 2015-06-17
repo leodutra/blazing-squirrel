@@ -1,4 +1,6 @@
- ace.require("ace/ext/language_tools");
+
+    ace.require("ace/ext/language_tools");
+    
     var editor = ace.edit("code-editor");
     editor.setTheme("ace/theme/dreamweaver");
     editor.getSession().setMode("ace/mode/sql");
@@ -11,7 +13,7 @@
       name: 'Submit shortcut',
       bindKey: {win: 'Ctrl-Enter',  mac: 'Command-Enter'},
       exec: function(editor) {
-          $('#queryForm').submit();
+          $('#queryBtn').click();
         }
     });
 
