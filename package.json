@@ -14,7 +14,7 @@
     "jade": "~1.9.2",
     "less-middleware": "1.0.x",
     "morgan": "~1.5.3",
-    "odbc": "^1.1.6",
+    "odbc": "git://github.com/LeoDutra/node-odbc.git",
     "serve-favicon": "~2.2.1",
     "string": "^3.2.0"
   },
