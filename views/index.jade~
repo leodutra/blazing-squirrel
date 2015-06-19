@@ -77,6 +77,6 @@ block content
   script(src='/addins/jquery-cycle2/build/jquery.cycle2.min.js')
   script(src='/addins/ace-builds/src-min-noconflict/ace.js')
   script(src='/addins/ace-builds/src-min-noconflict/ext-language_tools.js')
-  //-script(src='/javascripts/Data2HTMLResultBuilder.js')
+  script(src='/javascripts/Data2HTMLResultBuilder.js')
   script(src='/javascripts/AppNotifier.js')
   script(src='/javascripts/index.js')

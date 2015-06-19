@@ -107,6 +107,8 @@
 
     var lastExecuteXHR = null;
 
+    var lastResultWorker;
+
     $('#queryForm').submit(function (event) {
 
       $('#queryBtn').prop('disabled', true);
@@ -155,9 +157,29 @@
 
               saveLocalData();
 
-              display(new Data2HTMLResultBuilder().build(data, 'table table-bordered table-hover table-condensed table-striped small'));
+              if (typeof Worker !== 'undefined') {
+              	if (lastResultWorker) {
+              		lastResultWorker.terminate();
+              		lastResultWorker = null;
+              	}
 
-              appNotifier.show(null, "Operação finalizada.", true);
+              	var data2HTMLResultWorker = new Worker('/javascripts/Data2HTMLResultWorker.js');
+				
+				data2HTMLResultWorker.addEventListener('message', function(e) {
+					display(e.data);
+					appNotifier.show(null, "Operação finalizada.", true);
+				});
+
+              	data2HTMLResultWorker.postMessage([data, 'table table-bordered table-hover table-condensed table-striped small']);
+
+              	lastResultWorker = data2HTMLResultWorker;
+              }
+              else {
+              	display(new Data2HTMLResultBuilder().build(data, 'table table-bordered table-hover table-condensed table-striped small'));
+              	appNotifier.show(null, "Operação finalizada.", true);
+              }
+
+           
 
               data = null;
             }
