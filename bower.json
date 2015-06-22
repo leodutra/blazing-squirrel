@@ -23,7 +23,6 @@
     "pace": "~1.0.2",
     "jquery-cycle2": "~2.1.6",
     "store-js": "~1.3.17",
-    "notifyjs": "~0.3.2",
     "notify.js": "~1.2.5"
   }
 }
