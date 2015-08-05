@@ -23,7 +23,6 @@
   },
   "devDependencies": {
     "bower": "^1.4.1",
-    "node-libs-browser": "^0.5.2",
-    "webpack": "^1.9.10"
+    "node-libs-browser": "^0.5.2"
   }
 }
