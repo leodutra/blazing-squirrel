@@ -18,7 +18,7 @@ npm start
 ```
 + go to [http://localhost:3000]()
 
-## PM2 - Making a "phoenosquirrel" ( phoenix + squirrel (⌐■_■) )
+## Make a "phoenosquirrel" (phoenix + squirrel) (⌐■_■)
 Optionally you use BlazingSquirrel with [PM2](http://pm2.keymetrics.io/), running pm2.sh,
 so it will restart automatically after failures and system reboot.
 
