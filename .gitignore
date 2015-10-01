@@ -2,3 +2,4 @@ node_modules/
 public/addins/
 public/stylesheets/*.css
 npm-debug.log
+build/
