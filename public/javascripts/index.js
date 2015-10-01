@@ -34,8 +34,8 @@
         tips: [
             '<b>"Shift + scroll"</b> scrolls horizontally (in some browsers)',
             '<b>"Ctrl + enter"</b> executes the code',
-            '<b>"Ctrl + espa&ccedil;o"</b> autocompletes SQL',
-            '<b>"Ctrl + / (ou ;)"</b> comments selection',
+            '<b>"Ctrl + space"</b> autocompletes SQL',
+            '<b>"Ctrl + / (or ;)"</b> comments selection',
             'Authorize <b>desktop notifications</b> for a comfortable experience'
         ],
 

@@ -6,11 +6,11 @@ block content
   .navbar.navbar-default.navbar-fixed-top.bottom-shadow(role='navigation')
     .container-fluid
         .navbar-header
-          a.logo(href='javascript:void(0);')
+          a.logo(href='javascript:;')
             img(src="/images/bs.png",class="img-responsive",style="width: 29px; height: 35px;")
-          a.navbar-brand(href='javascript:void(0);')=title
+          a.navbar-brand(href='javascript:;')=title
         #tips.small.pull-right.hidden-xs
-          b dica:&nbsp;
+          b tip:&nbsp;
           span
 
   form#queryForm
@@ -42,7 +42,7 @@ block content
           .col-md-2.col-xs-6
             p
               //-input(type="submit", style="position: absolute; left: -9999px; width: 1px; height: 1px;")
-              button#queryBtn.btn.btn-default.pull-right.btn-success(type="submit") Executar&nbsp;&nbsp;&nbsp;
+              button#queryBtn.btn.btn-default.pull-right.btn-success(type="submit") Execute&nbsp;&nbsp;&nbsp;
                 span.glyphicon.glyphicon-play
 
       .container-fluid
@@ -51,13 +51,8 @@ block content
             p 
               #code-editor
                 | 
-                | -- Atalhos:
-                | --   ctrl + enter   executa código
-                | --   ctrl + space   autocompletar o SQL
-                | --   ctrl + ; ou /  comenta seleção
-                | 
-                | -- ATENÇÃO: NOMES DE COLUNA DUPLICADO ESTÃO SENDO SUPRIMIDOS
-                | --         (driver ODBC em correção)
+                | -- WARNING: DUPLICATED COLUMN NAMES ARE BEING SUPPRESSED
+                | -- (ODBC dependency bug)        
                 | 
                 | select * from sysibm.systables
                 | where owner = 'DBPROD'
