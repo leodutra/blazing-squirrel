@@ -1,0 +1,39 @@
+{
+  "app": {
+    "name": "Blazing Squirrel",
+    "repository": "https://github.com/LeoDutra/blazing-squirrel"
+  },
+  "editor": {
+    "tips": {
+      "shortcut_shift_scroll": "<b>\"Shift + scroll\"</b> scroll horizontal (em alguns navegadores)",
+      "shortcut_ctrl_enter": "<b>\"Ctrl + enter\"</b> executa o código",
+      "shortcut_ctrl_space": "<b>\"Ctrl + space\"</b> autocompleta o SQL",
+      "shortcut_ctrl_slash": "<b>\"Ctrl + / (or ;)\"</b> commenta seleção",
+      "desktopNotifications": "Authorize as <b>notificações de desktop</b> para ser notificado ao receber resultados"
+    },
+    "ui": {
+      "buttons": {
+        "execute": "Executar"
+      },
+      "labels": {
+        "tip": "Dica",
+        "ip": "IP",
+        "port": "Porta",
+        "databaseName": "Nome do banco de dados",
+        "dbUser": "Usuário do banco de dados",
+        "dbPassword": "Senha de usuário de banco de dados"
+      }
+    },
+    "msgs": {
+      "responseReceived": "Resultado recebido.\\nClique aqui para visualizar.",
+      "noConnection": "Não foi possível acessar o serviço. Verifique sua conexão.",
+      "rendering": "Renderizando...",
+      "noRegister": "Nenhum registro encontrado.",
+      "undefinedDriverError": "Erro indefinido de driver (por favor verifique a configuração do driver)",
+      "preparingPresentation": "Resultado recebido... preparando apresentação...",
+      "executing": "Executando...",
+      "Error": "Erro",
+      "registers": "registro(s)"
+    }
+  }
+}

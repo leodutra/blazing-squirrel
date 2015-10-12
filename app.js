@@ -4,6 +4,9 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var i18n = require('i18next');
+var config = require('config');
+
 
 var routes = require('./routes/index');
 var sql = require('./routes/sql');
@@ -18,11 +21,31 @@ app.set('view engine', 'jade');
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 app.use(cookieParser());
 app.use(require('less-middleware')(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// i18n
+i18n.init(config.get("i18n"));
+i18n.registerAppHelper(app);
+app.use(i18n.handle);
+// app.use(function setDefaultUserLanguage(req, res, next) {
+//   var languages = req.acceptsLanguages();
+//   if (languages) {
+//     req.params.locale = languages[0];
+//   }
+//   console.log(req.query.locale, req.params.locale);
+//   next();
+// });
+
+// ADD CONFIG TO JADE AND ALL THE EXPRESS APP
+app.locals.config = config;
+//
+
+// ROUTES
 app.use('/', routes);
 app.use('/sql', sql);
 

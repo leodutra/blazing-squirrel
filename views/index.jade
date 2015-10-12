@@ -8,9 +8,9 @@ block content
         .navbar-header
           a.logo(href='javascript:;')
             img(src="/images/bs.png",class="img-responsive",style="width: 29px; height: 35px;")
-          a.navbar-brand(href='javascript:;')=title
+          a.navbar-brand(href='javascript:;')=t('app.name')
         #tips.small.pull-right.hidden-xs
-          b tip:&nbsp;
+          b !{t("editor.ui.labels.tip")}:&nbsp;
           span
 
   form#queryForm
@@ -18,31 +18,34 @@ block content
 
       .container-fluid
         .row.clearfix
-          - var titleSet = {ip: "ip", port: "port", db: "schema", user: "user", pass: "password"}
+          - var defaultValues = config.get("editor.defaultValues") || {};
+          - var placeholders = {ip: "127.0.0.1", port: ":50000", db: "SQL_DATABASE", user: "blazingsquirrel", pass: "******"}
           .col-md-2.col-xs-3
               .input-group
-                span.input-group-addon(title=titleSet.ip) #
-                input.form-control(name="ip", value="10.205.105.80", placeholder=titleSet.ip)
+                span.input-group-addon(title=t('editor.ui.labels.ip')) 
+                  span.glyphicon.glyphicon-globe
+                input.form-control(name="ip", value=defaultValues.ip || '', placeholder=placeholders.ip)
           .col-md-2.col-xs-3
               .input-group
-                span.input-group-addon(title=titleSet.port) :
-                input.form-control(name="port", value="50000", placeholder=titleSet.port)
+                span.input-group-addon(title=t('editor.ui.labels.port')) :
+                input.form-control(name="port", value=defaultValues.port || '', placeholder=placeholders.port)
           .col-md-2.col-xs-6
               .input-group.pull-left.col-xs-6.col-md-12
-                span.input-group-addon(title=titleSet.db) [ ]
-                input.form-control(name="db", value="DB2_TEST", placeholder=titleSet.db)
+                span.input-group-addon(title=t('editor.ui.labels.databaseName')) [ ]
+                input.form-control(name="db", value=defaultValues.database || '', placeholder=placeholders.db)
           .col-md-2.col-xs-3
               .input-group
-                span.input-group-addon(title=titleSet.user) @
-                input.form-control(name="user", placeholder=titleSet.user)
+                span.input-group-addon(title=t('editor.ui.labels.dbUser'))
+                  span.glyphicon.glyphicon-user
+                input.form-control(name="user", placeholder=placeholders.user)
           .col-md-2.col-xs-3
               .input-group
-                span.input-group-addon(title=titleSet.pass) ?
-                input.form-control(name="password", type="password", placeholder=titleSet.pass)
+                span.input-group-addon(title=t('editor.ui.labels.dbPassword')) ?
+                input.form-control(name="password", type="password", placeholder=placeholders.pass)
           .col-md-2.col-xs-6
             p
               //-input(type="submit", style="position: absolute; left: -9999px; width: 1px; height: 1px;")
-              button#queryBtn.btn.btn-default.pull-right.btn-success(type="submit") Execute&nbsp;&nbsp;&nbsp;
+              button#queryBtn.btn.btn-default.pull-right.btn-success(type="submit") !{t('editor.ui.buttons.execute')}&nbsp;&nbsp;&nbsp;
                 span.glyphicon.glyphicon-play
 
       .container-fluid
@@ -66,7 +69,28 @@ block content
         .col-xs-12
           #result.clearfix.overflowable(data-is-height-filler)
 
-  script(src='/addins/jquery-cycle2/build/jquery.cycle2.min.js')
+  script.
+
+    var APP_TIPS = [
+      '!{t("editor.tips.desktopNotifications")}',
+      '!{t("editor.tips.shortcut_shift_scroll")}',
+      '!{t("editor.tips.shortcut_ctrl_enter")}',
+      '!{t("editor.tips.shortcut_ctrl_space")}',
+      '!{t("editor.tips.shortcut_ctrl_slash")}'
+    ];
+
+    var APP_MSGS = {
+      "RESPONSE_RECEIVED":      '!{t("editor.msgs.responseReceived")}',
+      "NO_CONNECTION":          '!{t("editor.msgs.noConnection")}',
+      "RENDERING":              '!{t("editor.msgs.rendering")}',
+      "NO_REGISTER":            '!{t("editor.msgs.noRegister")}',
+      "UNDEFINED_DRIVER_ERROR": '!{t("editor.msgs.undefinedDriverError")}',
+      "PREPARING_PRESENTATION": '!{t("editor.msgs.preparingPresentation")}',
+      "EXECUTING":              '!{t("editor.msgs.executing")}',
+      "ERROR":                  '!{t("editor.msgs.Error")}',
+      "REGISTERS":              '!{t("editor.msgs.registers")}',
+    };
+
   script(src='/addins/ace-builds/src-min-noconflict/ace.js')
   script(src='/addins/ace-builds/src-min-noconflict/ext-language_tools.js')
   script(src='/javascripts/Data2HTMLResultBuilder.js')

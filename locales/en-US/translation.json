@@ -1,0 +1,39 @@
+{
+  "app": {
+    "name": "Blazing Squirrel",
+    "repository": "https://github.com/LeoDutra/blazing-squirrel"
+  },
+  "editor": {
+    "tips": {
+      "shortcut_shift_scroll": "<b>\"Shift + scroll\"</b> scrolls horizontally (in some browsers)",
+      "shortcut_ctrl_enter": "<b>\"Ctrl + enter\"</b> executes the code",
+      "shortcut_ctrl_space": "<b>\"Ctrl + space\"</b> autocompletes SQL",
+      "shortcut_ctrl_slash": "<b>\"Ctrl + / (or ;)\"</b> comments selection",
+      "desktopNotifications": "Authorize <b>desktop notifications</b> and be notified of results"
+    },
+    "ui": {
+      "buttons": {
+        "execute": "Execute"
+      },
+      "labels": {
+        "tip": "Tip",
+        "ip": "IP",
+        "port": "Port",
+        "databaseName": "Database name",
+        "dbUser": "Database user",
+        "dbPassword": "Database password"
+      }
+    },
+    "msgs": {
+      "responseReceived": "Response received.\\nClick here to see it.",
+      "noConnection": "You are not connected. Verify your network connection.",
+      "rendering": "Rendering...",
+      "noRegister": "No register was found",
+      "undefinedDriverError": "Undefined driver error (please review your service configuration)",
+      "preparingPresentation": "Result received... preparing presentation...",
+      "executing": "Executing...",
+      "Error": "Error",
+      "registers": "register(s)"
+    }
+  }
+}
