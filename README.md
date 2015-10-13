@@ -21,7 +21,7 @@ npm start
 
 ## How to make a "phoenosquirrel" (phoenix + squirrel) (⌐■_■)
 Optionally, use BlazingSquirrel with [PM2](http://pm2.keymetrics.io/), so it will restart automatically after failures and system reboot.
-Just configure your PM2 and run our `pm2.sh`. 
+Just configure your [PM2](http://pm2.keymetrics.io/) and run our `pm2.sh`. 
 
 ## Using the FreeTDS ODBC driver
 [Go to node-odbc's FreeTDS driver reference](https://github.com/wankdanker/node-odbc#using-the-freetds-odbc-driver)
