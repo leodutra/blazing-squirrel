@@ -8,7 +8,7 @@ block content
         .navbar-header
           a.logo(href='javascript:;')
             img(src="/images/bs.png",class="img-responsive",style="width: 29px; height: 35px;")
-          a.navbar-brand(href='javascript:;')=t('app.name')
+          a.navbar-brand(href='https://github.com/LeoDutra/blazing-squirrel',target="project_repository")=t('app.name')
         #tips.small.pull-right.hidden-xs
           b !{t("editor.ui.labels.tip")}:&nbsp;
           span
@@ -18,8 +18,10 @@ block content
 
       .container-fluid
         .row.clearfix
+          
           - var defaultValues = config.get("editor.defaultValues") || {};
           - var placeholders = {ip: "127.0.0.1", port: ":50000", db: "SQL_DATABASE", user: "blazingsquirrel", pass: "******"}
+          
           .col-md-2.col-xs-3
               .input-group
                 span.input-group-addon(title=t('editor.ui.labels.ip')) 
