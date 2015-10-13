@@ -9,7 +9,7 @@
       "shortcut_ctrl_enter": "<b>\"Ctrl + enter\"</b> executa o código",
       "shortcut_ctrl_space": "<b>\"Ctrl + space\"</b> autocompleta o SQL",
       "shortcut_ctrl_slash": "<b>\"Ctrl + / (or ;)\"</b> commenta seleção",
-      "desktopNotifications": "Authorize as <b>notificações de desktop</b> para ser notificado ao receber resultados"
+      "desktopNotifications": "Autorize as <b>notificações de desktop</b> para ser notificado ao receber resultados"
     },
     "ui": {
       "buttons": {
