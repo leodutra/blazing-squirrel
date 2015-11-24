@@ -1,6 +1,6 @@
 {
   "odbc": {
-    "connectionPattern": "DRIVER={BLAZING_SQUIRREL};DATABASE={{db}};HOSTNAME={{ip}};UID={{user}};PWD={{password}};PORT={{port}};PROTOCOL=TCPIP"
+    "connectionPattern": "DRIVER={SQL Server Native Client 11.0};DATABASE={{db}};HOSTNAME={{ip}};UID={{user}};PWD={{password}};PORT={{port}};PROTOCOL=TCPIP"
   },
   "i18n": {
     "lng": "en-US",
