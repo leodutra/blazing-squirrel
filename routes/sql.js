@@ -14,8 +14,6 @@ const CONNECTION_PATTERN = config.get('odbc.connectionPattern');
 
 router.all('/query', function(req, res, next) {
 
-    console.log(CONNECTION_PATTERN)
-
     var missings = REQUIRED_PARAMS.filter(function(parm) {
         return !req.body[parm];
     });
