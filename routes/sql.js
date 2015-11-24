@@ -2,17 +2,19 @@
 const odbc = require('odbc');
 const string = require('string');
 const express = require('express');
+const config = require('config');
 const router = express.Router();
 
 // const
 const db = new odbc.Database();
 const odbcPool = new odbc.Pool();
 const REQUIRED_PARAMS = ['db', 'ip', 'user', 'password', 'port', 'query'];
-const CONNECTION_PATTERN =
-    'DRIVER={BLAZING_SQUIRREL};DATABASE={{db}};HOSTNAME={{ip}};UID={{user}};PWD={{password}};PORT={{port}};PROTOCOL=TCPIP';
+const CONNECTION_PATTERN = config.get('odbc.connectionPattern');
 
 
 router.all('/query', function(req, res, next) {
+
+    console.log(CONNECTION_PATTERN)
 
     var missings = REQUIRED_PARAMS.filter(function(parm) {
         return !req.body[parm];

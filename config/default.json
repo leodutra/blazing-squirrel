@@ -1,4 +1,7 @@
 {
+  "odbc": {
+    "connectionPattern": "DRIVER={BLAZING_SQUIRREL};DATABASE={{db}};HOSTNAME={{ip}};UID={{user}};PWD={{password}};PORT={{port}};PROTOCOL=TCPIP"
+  },
   "i18n": {
     "lng": "en-US",
     "supportedLngs": ["en-US", "pt-BR"],
