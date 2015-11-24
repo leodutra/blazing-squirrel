@@ -1,7 +1,7 @@
 module.exports = {
   "i18n": {
     "lng": "en-US",
-    "supportedLngs": ['en-US'],
+    "supportedLngs": ['en-US', 'pt-BR'],
     "useCookie": false
   },
   "editor": {
